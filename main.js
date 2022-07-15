@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const readline = require('readline');
+const { start } = require('repl');
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -30,26 +31,61 @@ const printStacks = () => {
 }
 
 // Next, what do you think this function should do?
-const movePiece = () => {
+const movePiece = (startStack, endStack) => {
   // Your code here
-
+  // Move last piece of an array from the startStack to the endStack 
+  let firstMove = stacks[startStack].pop()
+  stacks[endStack].push(firstMove)
 }
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
-const isLegal = () => {
+const isLegal = (startStack, endStack) => {
   // Your code here
-
+  
+  // check if the move is valid (no larger piece after a smaller piece)
+if (stacks[startStack].slice(-1) < stacks[endStack].slice(-1)) {
+  return true
+} if (stacks[endStack].length == 0) {
+  return true}
+  else {
+  return false
 }
-
+}
 // What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
   // Your code here
-
+  // check if c is [4, 3, 2, 1]
+  if (stacks.b == "4,3,2,1" || stacks.c == "4,3,2,1"){
+    return true
+  } else {
+    return false
+  }
+  
+ 
 }
 
 // When is this function called? What should it do with its argument?
 const towersOfHanoi = (startStack, endStack) => {
   // Your code here
+  // call all functions in order
+  //grab the args(a and c) and set variables
+  //check to see if isLegal(start, end)
+  // if its true call movePiece and checkforWin
+  if (isLegal(startStack, endStack)) {
+    movePiece(startStack, endStack)
+    if (checkForWin()){
+      console.log('You Win')
+      stacks = {
+        a: [4, 3, 2, 1],
+        b: [],
+        c: []
+      }
+    }
+  } else {
+    console.log ('Invalid Move. Try again')
+  }
+  
+  // if its false invalid move
 
 }
 
